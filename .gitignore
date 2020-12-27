@@ -1,1 +1,5 @@
-/venv/
+/venv/*
+db.sqlite3
+/room/_pycache_/*
+/room/migration/*
+/djagoProject67/_pycache_
