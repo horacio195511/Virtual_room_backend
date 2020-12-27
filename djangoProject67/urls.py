@@ -17,6 +17,7 @@ from django.conf.urls import url, include, re_path
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from room.views import *
+from User.views import *
 
 
 router = DefaultRouter()
@@ -29,7 +30,7 @@ urlpatterns = [
     re_path(r'test/v1/user_create', userCreate),
     re_path(r'test/v1/user_login', userLogin),
     re_path(r'test/v1/get_meeting_info_month', getMeetingInfo_month),
-    re_path(r'test/v1/get_meeting_info_week', getMeetingInfo_weeek),
+    re_path(r'test/v1/get_meeting_info_week', getMeetingInfo_week),
     re_path(r'^test/v1/meeting_edit', meeting_update_view),
     re_path(r'^test/v1/meeting_cancel', meeting_delete_view),
     re_path(r'^test/v1/meeting_create', create_meeting),
