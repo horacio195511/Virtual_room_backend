@@ -34,9 +34,16 @@ def create_meeting(request):
     return JsonResponse({"result":1}, safe=False)
 
 
+@csrf_exempt
 def meeting_update_view(request):
-    meeting = Meeting.objects.filter(pk=request.POST['id'])
-    meeting.update(topic=request.POST["topic"])
+    meeting = Meeting.objects.get(pk=request.POST['id'])
+    meeting.update(topic=request.POST["topic"],
+                   host=request.POST["host"],
+                   start=request.POST["start"],
+                   end=request.POST["end"],
+                   attendee=request.POST["attendee"],
+                   room=request.POST["room"]
+                   )
     return Response(meeting, status=status.HTTP_200_OK)
 
 @csrf_exempt
