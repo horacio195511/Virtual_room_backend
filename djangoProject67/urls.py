@@ -26,7 +26,12 @@ router.register(r'meeting', MeetingViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    re_path(r'test/v1/user_create', userCreate),
+    re_path(r'test/v1/user_login', userLogin),
+    re_path(r'test/v1/get_meeting_info_month', getMeetingInfo_month),
+    re_path(r'test/v1/get_meeting_info_week', getMeetingInfo_weeek),
     re_path(r'^test/v1/meeting_edit', meeting_update_view),
     re_path(r'^test/v1/meeting_cancel', meeting_delete_view),
-    re_path(r'^test/v1/meeting_create', create_meeting)
+    re_path(r'^test/v1/meeting_create', create_meeting),
+    re_path(r'test/v1/google_reminder_create', createReminder),
 ]

@@ -16,6 +16,15 @@ class MeetingViewSet(viewsets.ModelViewSet):
     serializer_class = MeetingSerializer
 
 @csrf_exempt
+def getMeetingInfo_month(request):
+
+@csrf_exempt
+def getMeetingInfo_month(request):
+
+@csrf_exempt
+def createReminder(request):
+
+@csrf_exempt
 def create_meeting(request):
     topic = request.POST['topic']
     host = request.POST['host']
