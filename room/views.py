@@ -19,7 +19,7 @@ class MeetingViewSet(viewsets.ModelViewSet):
 def create_meeting(request):
     topic = request.POST['topic']
     host = request.POST['host']
-    start = request.POST['start']
+    start= request.POST['start']
     end = request.POST['end']
     attendee = request.POST['attendee']
     room = request.POST['room']
@@ -33,7 +33,7 @@ def create_meeting(request):
     meeting.save()
     return JsonResponse({"result":1}, safe=False)
 
-@csrf_exempt
+
 def meeting_update_view(request):
     meeting = Meeting.objects.filter(pk=request.POST['id'])
     meeting.update(topic=request.POST["topic"])
@@ -44,4 +44,5 @@ def meeting_delete_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
     meeting.delete()
     success = JsonResponse({"data":"取消會議失敗"})
+
     return success

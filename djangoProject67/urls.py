@@ -26,6 +26,7 @@ router.register(r'meeting', MeetingViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    re_path(r'^test/v1/user_login'),
     re_path(r'^test/v1/meeting_edit', meeting_update_view),
     re_path(r'^test/v1/meeting_cancel', meeting_delete_view),
     re_path(r'^test/v1/meeting_create', create_meeting)
