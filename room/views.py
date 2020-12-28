@@ -18,164 +18,105 @@ class MeetingViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def getMeetingInfo_month(request):
     # data for testing
-    # meetings = [
-    #     {
-    #       location: 'room31',
-    #       meetings: [[], [], [], [
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'science',
-    #             host: 'Yue',
-    #             start: new Date(2020, 12, 16, 11, 10),
-    #             end: new Date(2020, 12, 16, 16, 60),
-    #             location: 'room31',
-    #             attendee: [{ id: 1, user: 'yahzee' }, { id: 2, user: 'evo' }, { id: 3, user: 'uno' }],
-    #           },
-    #         },
-    #       ], [], [
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'math',
-    #             host: 'Jeremy Lin',
-    #             start: new Date(2020, 12, 18, 12, 30),
-    #             end: new Date(2020, 12, 18, 14, 2),
-    #             location: 'room31',
-    #             attendee: [{ id: 1, user: 'george' }, { id: 2, user: 'roman' }, { id: 3, user: 'leonardo' }],
-    #           },
-    #         },
-    #       ], [
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'science',
-    #             host: 'Daniel Lin',
-    #             start: new Date(2020, 12, 19, 12, 19),
-    #             end: new Date(2020, 12, 19, 16, 0),
-    #             location: 'room31',
-    #             attendee: [{ id: 1, user: 'daniel' }, { id: 2, user: 'mark' }, { id: 3, user: 'sam' }],
-    #           },
-    #         },
-    #       ],
-    #       ],
-    #     },
-    #     {
-    #       location: 'room70',
-    #       meetings: [[
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'architecture',
-    #             host: 'hyudai',
-    #             start: new Date(2020, 12, 13, 5, 20),
-    #             end: new Date(2020, 12, 13, 8, 30),
-    #             location: 'room70',
-    #             attendee: [{ id: 1, user: 'jolin' }, { id: 2, user: 'olivo' }, { id: 3, user: 'foxtrat' }],
-    #           },
-    #         },
-    #       ], [], [
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'physics',
-    #             host: 'fandom',
-    #             start: new Date(2020, 12, 15, 25, 6),
-    #             end: new Date(2020, 12, 15, 27, 40),
-    #             location: 'room70',
-    #             attendee: [{ id: 1, user: 'rosvo' }, { id: 2, user: 'deli' }, { id: 3, user: 'alin' }],
-    #           },
-    #         },
-    #         {
-    #           id: 2,
-    #           meeting: {
-    #             topic: 'software',
-    #             host: 'uganda',
-    #             start: new Date(2020, 12, 15, 30, 70),
-    #             end: new Date(2020, 12, 15, 40, 70),
-    #             location: 'room70',
-    #             attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-    #           },
-    #         },
-    #       ], [], [
-    #         {
-    #           id: 1,
-    #           meeting: {
-    #             topic: 'engineer',
-    #             host: 'daniel',
-    #             start: new Date(2020, 12, 17, 20, 40),
-    #             end: new Date(2020, 12, 17, 22, 22),
-    #             location: 'room70',
-    #             attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-    #           },
-    #         },
-    #       ], [], [],
-    #       ],
-    #     },
-
-    #   ]
-    return JsonResponse({'result':1}, safe=False)
+    return JsonResponse({result:1}, safe=False)
 @csrf_exempt
 def getMeetingInfo_week(request):
-    # meetings = [
-    #     {
-    #       topic: 'science',
-    #       host: 'Daniel Lin',
-    #       start: new Date(2020, 12, 20, 15, 30),
-    #       end: new Date(2020, 12, 20, 16, 0),
-    #       location: 'room31',
-    #       attendee: [{ id: 1, user: 'daniel' }, { id: 2, user: 'mark' }, { id: 3, user: 'sam' }],
-    #     },
-    #     {
-    #       topic: 'math',
-    #       host: 'Jeremy Lin',
-    #       start: new Date(2020, 12, 18, 12, 30),
-    #       end: new Date(2020, 12, 18, 14, 2),
-    #       location: 'hall1',
-    #       attendee: [{ id: 1, user: 'george' }, { id: 2, user: 'roman' }, { id: 3, user: 'leonardo' }],
-    #     },
-    #     {
-    #       topic: 'science',
-    #       host: 'Yue',
-    #       start: new Date(2020, 12, 21, 11, 10),
-    #       end: new Date(2020, 12, 21, 16, 60),
-    #       location: 'room34',
-    #       attendee: [{ id: 1, user: 'yahzee' }, { id: 2, user: 'evo' }, { id: 3, user: 'uno' }],
-    #     },
-    #     {
-    #       topic: 'architecture',
-    #       host: 'hyudai',
-    #       start: new Date(2020, 12, 22, 5, 20),
-    #       end: new Date(2020, 12, 22, 8, 30),
-    #       location: 'room70',
-    #       attendee: [{ id: 1, user: 'jolin' }, { id: 2, user: 'olivo' }, { id: 3, user: 'foxtrat' }],
-    #     },
-    #     {
-    #       topic: 'physics',
-    #       host: 'fandom',
-    #       start: new Date(2020, 12, 15, 25, 6),
-    #       end: new Date(2020, 12, 15, 27, 40),
-    #       location: 'room31',
-    #       attendee: [{ id: 1, user: 'rosvo' }, { id: 2, user: 'deli' }, { id: 3, user: 'alin' }],
-    #     },
-    #     {
-    #       topic: 'engineer',
-    #       host: 'daniel',
-    #       start: new Date(2020, 12, 11, 20, 40),
-    #       end: new Date(2020, 12, 11, 22, 22),
-    #       location: 'hall1',
-    #       attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-    #     },
-    #     {
-    #       topic: 'software',
-    #       host: 'uganda',
-    #       start: new Date(2020, 12, 15, 30, 70),
-    #       end: new Date(2020, 12, 15, 40, 70),
-    #       location: 'stub11',
-    #       attendee: [{ id: 1, user: 'quantun' }, { id: 2, user: 'fermi' }, { id: 3, user: 'einstein' }],
-    #     },
-    #   ]
-    return JsonResponse({'result':1}, safe=False)
+    meeting_list = [
+        {
+          'location': 'room31',
+          'meetings': [[], [], [], [
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'science',
+                'host': 'Yue',
+                'start': '2020-12-16T11:10:20Z',
+                'end': '2020-12-16T11:11:50Z',
+                'location': 'room31',
+                'attendee': [{ id: 1, 'user': 'yahzee' }, { id: 2, 'user': 'evo' }, { id: 3, 'user': 'uno' }],
+              },
+            },
+          ], [], [
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'math',
+                'host': 'Jeremy Lin',
+                'start': '2020-12-18T12:30:20Z',
+                'end': '2020-12-18T12:30:40Z',
+                'location': 'room31',
+                'attendee': [{ id: 1, 'user': 'george' }, { id: 2, 'user': 'roman' }, { id: 3, 'user': 'leonardo' }],
+              },
+            },
+          ], [
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'science',
+                'host': 'Daniel Lin',
+                'start': '2020-12-19T12:19:12Z',
+                'end': '2020-12-19T16:0:12Z',
+                'location': 'room31',
+                'attendee': [{ id: 1, 'user': 'daniel' }, { id: 2, 'user': 'mark' }, { id: 3, 'user': 'sam' }],
+              },
+            },
+          ],
+          ],
+        },
+        {
+          'location': 'room70',
+          'meetings': [[
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'architecture',
+                'host': 'hyudai',
+                'start': '2020-12-13T5:20:20Z',
+                'end': '2020-12-13T8:30:20Z',
+                'location': 'room70',
+                'attendee': [{ id: 1, 'user': 'jolin' }, { id: 2, 'user': 'olivo' }, { id: 3, 'user': 'foxtrat' }],
+              },
+            },
+          ], [], [
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'physics',
+                'host': 'fandom',
+                'start': '2020-12-15T25:6',
+                'end': '2020-12-15T27:40',
+                'location': 'room70',
+                'attendee': [{ id: 1, 'user': 'rosvo' }, { id: 2, 'user': 'deli' }, { id: 3, 'user': 'alin' }],
+              },
+            },
+            {
+              id: 2,
+              'meeting': {
+                'topic': 'software',
+                'host': 'uganda',
+                'start': '2020-12-15T30:70:30Z',
+                'end': '2020-12-15T40:70:30Z',
+                'location': 'room70',
+                'attendee': [{ id: 1, 'user': 'quantun' }, { id: 2, 'user': 'fermi' }, { id: 3, 'user': 'einstein' }],
+              },
+            },
+          ], [], [
+            {
+              id: 1,
+              'meeting': {
+                'topic': 'engineer',
+                'host': 'daniel',
+                'start': '2020-12-17T20:40:20Z',
+                'end': '2020-12-17T22:22:20Z',
+                'location': 'room70',
+                'attendee': [{ id: 1, 'user': 'quantun' }, { id: 2, 'user': 'fermi' }, { id: 3, 'user': 'einstein' }],
+              },
+            },
+          ], [], [],
+          ],
+        },
+      ]
+    return JsonResponse(meeting_list, safe=False)
 
 @csrf_exempt
 def createReminder(request):
