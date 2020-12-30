@@ -311,7 +311,6 @@ def getMeetingInfo_month(request):
 
     return JsonResponse(result, safe=False)
 
-
 @csrf_exempt
 def getMeetingInfo_week(request):
     result = {}
@@ -326,9 +325,9 @@ def getMeetingInfo_week(request):
 
     data = Meeting.objects.all()
     for i in range(len(data)):
-        # 抓該日期的 meeting 資料 
+        # 抓該日期的 meeting 資料
         if(data[i].start[5:7] == request.POST['date'][0:2]):
-            if(data[i].room == '1'):
+            if(data[i].room == 'Room1'):
                 if(int(data[i].start[8:10]) == int(request.POST['date'][3:5]) + 0):
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
@@ -392,7 +391,7 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[1][7]["meeting"].append(tmp_dict)
-            elif(data[i].room == '2'):
+            elif(data[i].room == 'Room2'):
                 if(int(data[i].start[8:10]) == int(request.POST['date'][3:5]) + 0):
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
@@ -456,7 +455,7 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[2][7]["meeting"].append(tmp_dict)
-            elif(data[i].room == '3'):
+            elif(data[i].room == 'Room3'):
                 if(int(data[i].start[8:10]) == int(request.POST['date'][3:5]) + 0):
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
@@ -520,7 +519,7 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[3][7]["meeting"].append(tmp_dict)
-            elif(data[i].room == '4'):
+            elif(data[i].room == 'Room4'):
                 if(int(data[i].start[8:10]) == int(request.POST['date'][3:5]) + 0):
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
@@ -584,7 +583,7 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[4][7]["meeting"].append(tmp_dict)
-            elif(data[i].room == '5'):
+            elif(data[i].room == 'Room5'):
                 if(int(data[i].start[8:10]) == int(request.POST['date'][3:5]) + 0):
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
@@ -648,6 +647,8 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[5][7]["meeting"].append(tmp_dict)
+    
+    
     return JsonResponse(result, safe=False)
 
 @csrf_exempt
