@@ -51,47 +51,6 @@ def changePassword(request):
 @csrf_exempt
 def createReminder(request):
     id = request.POST['id']#會議ID
-    reminderTime = request.POST['reminder_time']
-
-    return JsonResponse({'result': 0})
-
-    account = request.POST['account']#使用者帳號名稱
-    password = request.POST['password']#使用者密碼
-    if User.objects.filter(username=account).exists():
-        u = User.objects.get(username=account)
-        u.set_password(password)
-        u.save()
-        return JsonResponse({'result': 0})
-    else:
-        return Response({'result': '無效的使用者帳號'}, status=status.HTTP_400_BAD_REQUEST)
-
-@csrf_exempt
-def userLogin(request):
-    account = request.POST['account']#使用者帳號名稱
-    password = request.POST['password']#使用者密碼
-
-    user = auth.authenticate(username=account, password=password)
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return JsonResponse({'result': 0})
-    else:
-        return JsonResponse({'result': 1})
-
-@csrf_exempt
-def changePassword(request):
-    account = request.POST['account']#使用者帳號名稱
-    password = request.POST['password']#使用者密碼
-    if User.objects.filter(username=account).exists():
-        u = User.objects.get(username=account)
-        u.set_password(password)
-        u.save()
-        return JsonResponse({'result': 0})
-    else:
-        return Response({'result': '無效的使用者帳號'}, status=status.HTTP_400_BAD_REQUEST)
-
-@csrf_exempt
-def createReminder(request):
-    id = request.POST['id']#會議ID
     reminderTime = request.POST['reminder_time']#幾分鐘前提醒
     meeting = Meeting.objects.get(pk=id)
 
