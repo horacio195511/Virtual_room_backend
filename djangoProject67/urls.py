@@ -35,5 +35,5 @@ urlpatterns = [
     re_path(r'^test/v1/meeting_edit', meeting_update_view),
     re_path(r'^test/v1/meeting_cancel', meeting_delete_view),
     re_path(r'^test/v1/meeting_create', create_meeting),
-    re_path(r'test/v1/google_reminder_create', createReminder),
+    re_path(r'^test/v1/google_reminder_create', createReminder),
 ]

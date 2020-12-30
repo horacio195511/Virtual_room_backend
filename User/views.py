@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import auth
 from django.contrib.auth.models import User
-
+from room.models import Meeting
 # Create your views here.
 
 @csrf_exempt
@@ -51,16 +51,27 @@ def changePassword(request):
 @csrf_exempt
 def createReminder(request):
     id = request.POST['id']#會議ID
-    reminderTime = request.POST['reminder_time']
+    reminderTime = request.POST['reminder_time']#幾分鐘前提醒
+    meeting = Meeting.objects.get(pk=id)
 
+    event = {
+        'summary': meeting.topic,
+        'location': meeting.room,
+        'start': {
+            'dateTime': meeting.start,
+            'timeZone': 'Asia/Taipei',
+        },
+        'end': {
+            'dateTime': meeting.end,
+            'timeZone': 'Asia/Taipei',
+        },
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': reminderTime},
+            ],
+        },
+    }
+    event = service.events().insert(calendarId='primary', body=event).execute()
     return JsonResponse({'result': 0})
 
-    account = request.POST['account']#使用者帳號名稱
-    password = request.POST['password']#使用者密碼
-    if User.objects.filter(username=account).exists():
-        u = User.objects.get(username=account)
-        u.set_password(password)
-        u.save()
-        return JsonResponse({'result': 0})
-    else:
-        return Response({'result': '無效的使用者帳號'}, status=status.HTTP_400_BAD_REQUEST)
