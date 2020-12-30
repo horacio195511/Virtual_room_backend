@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import auth
+from django.contrib.auth.models import User
 
 # Create your views here.
 
+@csrf_exempt
 def userCreate(request):
     name = request.POST['name']#使用者本名
     mail = request.POST['mail']#使用者信箱
@@ -11,9 +14,9 @@ def userCreate(request):
     password = request.POST['password']#使用者密碼
 
     if User.objects.filter(email=mail).exists():
-        return Response({'result': 'mail 已存在'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': 'mail 已存在'}, status=status.HTTP_400_BAD_REQUEST)
     elif User.objects.filter(username=account).exists():
-        return Response({'result': 'account 已存在'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': 'account 已存在'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         user = User.objects.create_user(account, mail, password)
         user.last_name = name
