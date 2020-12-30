@@ -14,9 +14,9 @@ def userCreate(request):
     password = request.POST['password']#使用者密碼
 
     if User.objects.filter(email=mail).exists():
-        return JsonResponse({'result': 'mail 已存在'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': 'mail 已存在'})
     elif User.objects.filter(username=account).exists():
-        return JsonResponse({'result': 'account 已存在'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': 'account 已存在'})
     else:
         user = User.objects.create_user(account, mail, password)
         user.last_name = name
@@ -46,7 +46,7 @@ def changePassword(request):
         u.save()
         return JsonResponse({'result': 0})
     else:
-        return Response({'result': '無效的使用者帳號'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': '無效的使用者帳號'})
 
 @csrf_exempt
 def createReminder(request):
@@ -63,4 +63,4 @@ def createReminder(request):
         u.save()
         return JsonResponse({'result': 0})
     else:
-        return Response({'result': '無效的使用者帳號'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'result': '無效的使用者帳號'})
