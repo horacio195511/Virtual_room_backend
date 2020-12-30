@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import auth
 from django.contrib.auth.models import User
-from room.models import User, Meeting
+from room.models import Meeting
 # Create your views here.
 
 @csrf_exempt
