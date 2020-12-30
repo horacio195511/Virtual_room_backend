@@ -662,6 +662,7 @@ def create_meeting(request):
     end = request.POST['end']
     attendee = request.POST['attendee']
     room = request.POST['room']
+    print(host)
     meeting = Meeting(topic=topic,
                       host=host,
                       start=start,
@@ -670,7 +671,7 @@ def create_meeting(request):
                       room=room,
                       )
     meeting.save()
-    return JsonResponse({"result":1}, safe=False)
+    return JsonResponse({"result":0}, safe=False)
 
 
 @csrf_exempt
