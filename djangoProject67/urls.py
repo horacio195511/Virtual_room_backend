@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     re_path(r'test/v1/user_create', userCreate),
     re_path(r'test/v1/user_login', userLogin),
+    re_path(r'test/v1/change_password', changePassword),
     re_path(r'test/v1/get_meeting_info_month', getMeetingInfo_month),
     re_path(r'test/v1/get_meeting_info_week', getMeetingInfo_week),
     re_path(r'^test/v1/meeting_edit', meeting_update_view),
