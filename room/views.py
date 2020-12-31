@@ -27,7 +27,7 @@ def getMeetingInfo_month(request):
     data = Meeting.objects.all()
     for i in range(len(data)):
         # 抓該年份以及該月份的 meeting 資料
-        if(data[i].start[0:4] == request.POST['year'] and data[i].start[5:7] == request.POST['month']):
+        if(data[i].start[0:4] == request.POST['year'] and int(data[i].start[5:7]) == int(request.POST['month'])):
             # 抓日期資料
             if(data[i].start[8:10] == "01"):
                 tmp_dict = {}
