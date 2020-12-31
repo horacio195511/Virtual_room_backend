@@ -654,7 +654,31 @@ def getMeetingInfo_week(request):
 
 @csrf_exempt
 def createReminder(request):
-    return JsonResponse({'result':1}, safe=False)
+    id = request.POST['id']#會議ID
+    reminderTime = request.POST['reminder_time']#幾分鐘前提醒
+    meeting = Meeting.objects.get(pk=id)
+
+    event = {
+        'summary': meeting.topic,
+        'location': meeting.room,
+        'start': {
+            'dateTime': meeting.start,
+            'timeZone': 'Asia/Taipei',
+        },
+        'end': {
+            'dateTime': meeting.end,
+            'timeZone': 'Asia/Taipei',
+        },
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': reminderTime},
+            ],
+        },
+    }
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    return JsonResponse({'result': 0})
+
 @csrf_exempt
 def create_meeting(request):
     topic = request.POST['topic']
@@ -672,7 +696,8 @@ def create_meeting(request):
                       room=room,
                       )
     meeting.save()
-    return JsonResponse({"result":0}, safe=False)
+    meeting = Meeting.objects.filter(topic = topic, host = host, start = start, end = end)[0]
+    return JsonResponse({"result":0, 'id': meeting.id}, safe=False)
 
 
 @csrf_exempt

@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import auth
 from django.contrib.auth.models import User
-from room.models import Meeting
 # Create your views here.
 
 @csrf_exempt
@@ -47,31 +46,3 @@ def changePassword(request):
         return JsonResponse({'result': 0})
     else:
         return JsonResponse({'result': '無效的使用者帳號'})
-
-@csrf_exempt
-def createReminder(request):
-    id = request.POST['id']#會議ID
-    reminderTime = request.POST['reminder_time']#幾分鐘前提醒
-    meeting = Meeting.objects.get(pk=id)
-
-    event = {
-        'summary': meeting.topic,
-        'location': meeting.room,
-        'start': {
-            'dateTime': meeting.start,
-            'timeZone': 'Asia/Taipei',
-        },
-        'end': {
-            'dateTime': meeting.end,
-            'timeZone': 'Asia/Taipei',
-        },
-        'reminders': {
-            'useDefault': False,
-            'overrides': [
-                {'method': 'email', 'minutes': reminderTime},
-            ],
-        },
-    }
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    return JsonResponse({'result': 0})
-
