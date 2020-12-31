@@ -700,8 +700,7 @@ def create_meeting(request):
                       )
     meeting.save()
     meeting = Meeting.objects.filter(topic = topic, host = host, start = start, end = end)[0]
-    return JsonResponse({"result":0, 'id': meeting.id}, safe=False)
-
+    return JsonResponse({"result":0, 'meeting': meeting}, safe=False)
 
 @csrf_exempt
 def meeting_update_view(request):
