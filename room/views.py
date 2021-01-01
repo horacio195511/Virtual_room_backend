@@ -655,11 +655,40 @@ def getMeetingInfo_week(request):
     
     return JsonResponse(result, safe=False)
 
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from datetime import datetime, timedelta
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+
 @csrf_exempt
 def createReminder(request):
     id = request.POST['id']#會議ID
     reminderTime = request.POST['reminder_time']#幾分鐘前提醒
     meeting = Meeting.objects.get(pk=id)
+
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    # 會跳出視窗要求使用者給權限
+    # 若是要更換使用者create google reminder，請把token.pickle刪除，否則會寫到上一個使用者的google calendar
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+    service = build('calendar', 'v3', credentials=creds)
 
     event = {
         'summary': meeting.topic,
@@ -679,7 +708,7 @@ def createReminder(request):
             ],
         },
     }
-    event = service.events().insert(calendarId='primary', body=event).execute()
+    event = service.events().insert(calendarId='primary', sendNotifications=True, body=event).execute()
     return JsonResponse({'result': 0})
 
 @csrf_exempt
