@@ -841,18 +841,18 @@ def meeting_update_view(request):
 @csrf_exempt
 def meeting_delete_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
-    topic = request.POST["topic"]
-    start = request.POST["start"]
-    room = request.POST["room"]
+    topic = meeting.topic
+    start = meeting.start
+    room = meeting.room
     attendee = meeting.attendee
-    attendeelist = attendee.split(str=",")
+    attendeelist = attendee.split(",")
     for i in attendeelist:
-        user = User.objects.get(lastname=i)
+        user = User.objects.get(last_name=i)
         email = EmailMessage(
             '您已被取消邀請'+topic,  # 電子郵件標題
             '會議時間為：' + start + '\n會議地點為：NTUST TR ' + room,  # 電子郵件內容
             settings.EMAIL_HOST_USER,  # 寄件者
-            [user.mail]  # 收件者
+            [user.email]  # 收件者
         )
         email.fail_silently = False
         email.send()
