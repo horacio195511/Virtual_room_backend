@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 
 
 
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -802,6 +801,7 @@ def create_meeting(request):
         )
         gmail.fail_silently = False
         gmail.send()
+        return JsonResponse({"result": 1}, safe=False)
 
     meeting = Meeting.objects.filter(topic = topic, host = host, start = start, end = end)[0]
     return JsonResponse({"result":0, 'id': meeting.pk}, safe=False)
@@ -809,17 +809,48 @@ def create_meeting(request):
 @csrf_exempt
 def meeting_update_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
+    attendee_list1 = meeting.attendee.split(",")
     meeting.topic=request.POST["topic"]
     meeting.host=request.POST["host"]
     meeting.start=request.POST["start"]
+    start=request.POST["start"]
     meeting.end=request.POST["end"]
     meeting.attendee=request.POST["attendee"]
     meeting.room=request.POST["room"]
+    room=request.POST["room"]
     meeting.save()
+    attendee_list2 = meeting.attendee.split(",")
+    for i in attendee_list1:
+        ex = 0
+        for j in attendee_list2:
+            if(i==j):
+                ex=1
+        if(ex==0):
+            user = User.objects.get(last_name=i)
+            gmail = EmailMessage(
+                '您已被邀請至會議',  # 電子郵件標題
+                '會議時間為：' + start + '\n會議地點為：NTUST TR ROOM' + room,  # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                [user.email]  # 收件者
+            )
+            gmail.fail_silently = False
+            gmail.send()
     return JsonResponse({'result':0})
 
 @csrf_exempt
 def meeting_delete_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
+    attendee = meeting.attendee
+    attendeelist = attendee.split(str=",")
+    for i in attendeelist:
+        user = User.objects.get(lastname=i)
+        email = EmailMessage(
+            'Test',  # 電子郵件標題
+            '123',  # 電子郵件內容
+            settings.EMAIL_HOST_USER,  # 寄件者
+            [user.mail]  # 收件者
+        )
+        email.fail_silently = False
+        email.send()
     meeting.delete()
     return JsonResponse({'result':0})
