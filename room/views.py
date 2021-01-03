@@ -647,8 +647,6 @@ def getMeetingInfo_week(request):
                     tmp_dict["attendee"] = data[i].attendee
                     tmp_dict["room"] = data[i].room
                     result[5][7]["meeting"].append(tmp_dict)
-    
-    
     return JsonResponse(result, safe=False)
 
 import pickle
@@ -689,11 +687,11 @@ def createReminder(request):
         'summary': meeting.topic,
         'location': meeting.room,
         'start': {
-            'dateTime': meeting.start,
+            'dateTime': meeting.start + ':00',
             'timeZone': 'Asia/Taipei',
         },
         'end': {
-            'dateTime': meeting.end,
+            'dateTime': meeting.end + ':00',
             'timeZone': 'Asia/Taipei',
         },
         'reminders': {
