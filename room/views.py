@@ -796,7 +796,7 @@ def create_meeting(request):
         user = User.objects.get(last_name = i)
         gmail = EmailMessage(
             '您已被邀請至會議',  # 電子郵件標題
-            '會議時間為：' + start + '\n會議地點為：NTUST TR ROOM' + room,  # 電子郵件內容
+            '會議時間為：' + start + '\n會議地點為：NTUST TR ' + room,  # 電子郵件內容
             settings.EMAIL_HOST_USER,  # 寄件者
             [user.email]  # 收件者
         )
