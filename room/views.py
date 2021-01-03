@@ -809,13 +809,13 @@ def create_meeting(request):
 @csrf_exempt
 def meeting_update_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
-    meeting.update(topic=request.POST["topic"],
-                   host=request.POST["host"],
-                   start=request.POST["start"],
-                   end=request.POST["end"],
-                   attendee=request.POST["attendee"],
-                   room=request.POST["room"]
-                   )
+    meeting.topic=request.POST["topic"]
+    meeting.host=request.POST["host"]
+    meeting.start=request.POST["start"]
+    meeting.end=request.POST["end"]
+    meeting.attendee=request.POST["attendee"]
+    meeting.room=request.POST["room"]
+    meeting.save()
     return JsonResponse({'result':0})
 
 @csrf_exempt
