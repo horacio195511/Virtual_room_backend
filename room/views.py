@@ -794,7 +794,7 @@ def create_meeting(request):
     for i in attendee_list:
         user = User.objects.get(last_name = i)
         gmail = EmailMessage(
-            '您已被邀請至會議',  # 電子郵件標題
+            '您已被邀請至會議 '+topic,  # 電子郵件標題
             '會議時間為：' + start + '\n會議地點為：NTUST TR ' + room,  # 電子郵件內容
             settings.EMAIL_HOST_USER,  # 寄件者
             [user.email]  # 收件者
@@ -811,6 +811,7 @@ def meeting_update_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
     attendee_list1 = meeting.attendee.split(",")
     meeting.topic=request.POST["topic"]
+    topic = request.POST["topic"]
     meeting.host=request.POST["host"]
     meeting.start=request.POST["start"]
     start=request.POST["start"]
@@ -828,8 +829,8 @@ def meeting_update_view(request):
         if(ex==0):
             user = User.objects.get(last_name=i)
             gmail = EmailMessage(
-                '您已被邀請至會議',  # 電子郵件標題
-                '會議時間為：' + start + '\n會議地點為：NTUST TR ROOM' + room,  # 電子郵件內容
+                '您已被取消邀請'+topic,  # 電子郵件標題
+                '會議時間為：' + start + '\n會議地點為：NTUST TR ' + room,  # 電子郵件內容
                 settings.EMAIL_HOST_USER,  # 寄件者
                 [user.email]  # 收件者
             )
