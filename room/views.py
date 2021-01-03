@@ -659,6 +659,7 @@ import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 from datetime import datetime, timedelta
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -667,7 +668,6 @@ def createReminder(request):
     id = request.POST['id']#會議ID
     reminderTime = request.POST['reminder_time']#幾分鐘前提醒
     meeting = Meeting.objects.get(pk=id)
-
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -689,7 +689,6 @@ def createReminder(request):
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
     service = build('calendar', 'v3', credentials=creds)
-
     event = {
         'summary': meeting.topic,
         'location': meeting.room,
