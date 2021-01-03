@@ -313,9 +313,6 @@ def getMeetingInfo_month(request):
 
 @csrf_exempt
 def getMeetingInfo_week(request):
-    print(request.POST['year'])
-    print(request.POST['month'])
-    print(request.POST['day'])
     result = {}
     for i in range(1,6):
         tmp1 = {}
@@ -588,7 +585,6 @@ def getMeetingInfo_week(request):
                     result[4][7]["meeting"].append(tmp_dict)
             elif(data[i].room == 'Room5'):
                 if(int(data[i].start[8:10]) == int(request.POST['day']) + 0):
-                    print(int(request.POST['day']) + 0)
                     tmp_dict = {}
                     tmp_dict["topic"] = data[i].topic
                     tmp_dict["host"] = data[i].host
@@ -683,7 +679,7 @@ def createReminder(request):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                'C:\\Users\\gtr51\\Documents\\MyStudio\\Project\\Meeting Room Management\\website\\current\\prduction server\\Virtual_room_backend\\room\\credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
@@ -719,7 +715,6 @@ def create_meeting(request):
     end = request.POST['end']
     attendee = request.POST['attendee']
     room = request.POST['room']
-    print(host)
     meeting = Meeting(topic=topic,
                       host=host,
                       start=start,
