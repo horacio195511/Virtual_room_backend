@@ -697,7 +697,7 @@ def createReminder(request):
         'reminders': {
             'useDefault': False,
             'overrides': [
-                {'method': 'email', 'minutes': reminderTime},
+                {'method': 'email', 'minutes': int(reminderTime)},
             ],
         },
     }
