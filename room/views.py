@@ -4,6 +4,7 @@ from room.serializers import UserSerializer, MeetingSerializer
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -31,7 +32,7 @@ def create_meeting(request):
                       room=room,
                       )
     meeting.save()
-    return JsonResponse({"result":1}, safe=False)
+    return JsonResponse({"result": 1}, safe=False)
 
 
 @csrf_exempt
@@ -49,7 +50,18 @@ def meeting_update_view(request):
 @csrf_exempt
 def meeting_delete_view(request):
     meeting = Meeting.objects.get(pk=request.POST['id'])
+    attendee = meeting.attendee
+    attendeelist = attendee.split(str=",")
+    for i in attendeelist:
+        user = User.objects.get(lastname=i)
+        send_mail(
+            '會議已取消',
+            '您所參加的會議已取消.',
+            "wd97411002@gmail.com",
+            [user.mail],
+            fail_silently=False,
+        )
     meeting.delete()
-    success = JsonResponse({"data":"取消會議失敗"})
+    success = JsonResponse({"data":"取消會議成功"})
 
     return success
